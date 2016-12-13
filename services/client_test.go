@@ -12,6 +12,7 @@ import (
 
 const (
 	serviceName = "foo"
+	basePort    = 10000
 )
 
 func TestGetService(t *testing.T) {
@@ -31,7 +32,7 @@ func TestGetService(t *testing.T) {
 		},
 	}
 	servicesClient := services.NewServicesClient(fakeClient)
-	services, err := servicesClient.GetService(serviceName)
+	services, err := servicesClient.GetService(serviceName, basePort)
 
 	assert.Nil(t, err)
 	require.NotNil(t, services)
@@ -41,9 +42,11 @@ func TestGetService(t *testing.T) {
 	require.Equal(t, 2, len(containers))
 
 	assert.Equal(t, 0, containers[0].Index)
+	assert.Equal(t, 10000, containers[0].ExternalPort)
 	assert.Equal(t, "1.2.3.4", containers[0].IP)
 
 	assert.Equal(t, 1, containers[1].Index)
+	assert.Equal(t, 10001, containers[1].ExternalPort)
 	assert.Equal(t, "1.2.3.5", containers[1].IP)
 }
 
@@ -55,7 +58,7 @@ func TestGetServiceError(t *testing.T) {
 	}
 
 	servicesClient := services.NewServicesClient(fakeClient)
-	services, err := servicesClient.GetService(serviceName)
+	services, err := servicesClient.GetService(serviceName, basePort)
 
 	assert.Nil(t, services)
 	assert.Equal(t, err, testError)

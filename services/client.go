@@ -18,14 +18,15 @@ type Service struct {
 
 // Container represents a container on rancher
 type Container struct {
-	IP    string
-	Index int
+	IP           string
+	Index        int
+	ExternalPort int
 }
 
 // Client represents an interfaces for clients to rancher services
 type Client interface {
 	// GetServices returns a Service by name
-	GetService(string) (*Service, error)
+	GetService(string, int) (*Service, error)
 }
 
 // NewServicesClient returns a new services client implementation
@@ -39,7 +40,7 @@ type client struct {
 	metadataClient MetadataServicesClient
 }
 
-func (c *client) GetService(name string) (*Service, error) {
+func (c *client) GetService(name string, basePort int) (*Service, error) {
 	metadataService, err := c.metadataClient.GetSelfServiceByName(name)
 	if err != nil {
 		return nil, err
@@ -52,8 +53,9 @@ func (c *client) GetService(name string) (*Service, error) {
 	containers := make([]Container, 0, len(service.Containers))
 	for _, c := range metadataService.Containers {
 		container := Container{
-			IP:    c.PrimaryIp,
-			Index: c.CreateIndex,
+			IP:           c.PrimaryIp,
+			Index:        c.CreateIndex,
+			ExternalPort: basePort + c.CreateIndex,
 		}
 		containers = append(containers, container)
 	}
