@@ -2,8 +2,6 @@ package haproxy
 
 import (
 	"bytes"
-	"fmt"
-	"os"
 	"text/template"
 
 	"github.com/bfosberry/rancher-stalls/services"
@@ -15,7 +13,7 @@ frontend api
     mode tcp
     {{range .Containers}}
     bind *:{{.ExternalPort}}
-    acl desk{{.Index}} dst_port {{.ExternalPort}}
+    acl dest{{.Index}} dst_port {{.ExternalPort}}
     use_backend Backend{{.Index}} if dest{{.Index}}
     {{end}}{{range .Containers}}
 backend Backend{{.Index}}
