@@ -1,13 +1,11 @@
 package main
 
 import (
-	"crypto/md5"
 	"fmt"
 	"io/ioutil"
 	"os"
 	"strconv"
 	"sync"
-	"time"
 
 	"github.com/bfosberry/rancher-stalls/haproxy"
 	"github.com/bfosberry/rancher-stalls/services"

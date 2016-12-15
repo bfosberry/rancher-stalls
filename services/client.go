@@ -1,6 +1,8 @@
 package services
 
 import (
+	"strconv"
+
 	"github.com/rancher/go-rancher-metadata/metadata"
 )
 
@@ -52,10 +54,14 @@ func (c *client) GetService(name string, basePort int) (*Service, error) {
 
 	containers := make([]Container, 0, len(service.Containers))
 	for _, c := range metadataService.Containers {
+		serviceIndex, err := strconv.Atoi(c.ServiceIndex)
+		if err != nil {
+			serviceIndex = c.CreateIndex
+		}
 		container := Container{
 			IP:           c.PrimaryIp,
-			Index:        c.CreateIndex,
-			ExternalPort: basePort + c.CreateIndex,
+			Index:        serviceIndex,
+			ExternalPort: basePort + serviceIndex,
 		}
 		containers = append(containers, container)
 	}
