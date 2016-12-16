@@ -56,12 +56,12 @@ func (c *client) GetService(name string, basePort int) (*Service, error) {
 	for _, c := range metadataService.Containers {
 		serviceIndex, err := strconv.Atoi(c.ServiceIndex)
 		if err != nil {
-			serviceIndex = c.CreateIndex
+			serviceIndex = c.CreateIndex - 1
 		}
 		container := Container{
 			IP:           c.PrimaryIp,
-			Index:        serviceIndex,
-			ExternalPort: basePort + serviceIndex,
+			Index:        serviceIndex - 1,
+			ExternalPort: basePort + serviceIndex - 1,
 		}
 		containers = append(containers, container)
 	}
