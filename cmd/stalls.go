@@ -6,6 +6,7 @@ import (
 	"os"
 	"strconv"
 	"sync"
+	"time"
 
 	"github.com/bfosberry/rancher-stalls/haproxy"
 	"github.com/bfosberry/rancher-stalls/services"
@@ -47,7 +48,9 @@ func main() {
 		}
 	})
 
-	haproxyWg.Wait()
+	for {
+		time.Sleep(1 * time.Minute)
+	}
 }
 
 func updateHaproxy(fetcher configFetcher, wg *sync.WaitGroup) error {
