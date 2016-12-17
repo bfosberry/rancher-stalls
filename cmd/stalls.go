@@ -37,13 +37,12 @@ func main() {
 		return getHaproxyConfig(servicesClient, serviceName, backendPort, basePort)
 	}
 
-	haproxyWg := &sync.WaitGroup{}
-	if err := updateHaproxy(fetcher, haproxyWg); err != nil {
+	if err := updateHaproxy(fetcher); err != nil {
 		fail(err)
 	}
 
 	metadataClient.OnChange(pollSleepTime/1000, func(_ string) {
-		if err := updateHaproxy(fetcher, haproxyWg); err != nil {
+		if err := updateHaproxy(fetcher); err != nil {
 			fail(err)
 		}
 	})

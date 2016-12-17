@@ -34,10 +34,10 @@ func ExecRunner(command string, args []string, inline bool, onDone DoneFunc) (st
 }
 
 // NewDummyRunner returns a Runner which can be used for testing
-func NewDummyRunner(commandPtr *string, argsPtr *[]string, output string, err error, doneErr error) Runner {
+func NewDummyRunner(commandChan chan string, argsChan chan []string, output string, err error, doneErr error) Runner {
 	return func(command string, args []string, inline bool, onDone DoneFunc) (string, error) {
-		*commandPtr = command
-		*argsPtr = args
+		commandChan <- command
+		argsChan <- args
 		if onDone != nil {
 			go onDone(doneErr)
 		}

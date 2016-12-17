@@ -15,11 +15,11 @@ frontend api
     mode tcp
     
     bind *:10000
-    acl desk0 dst_port 10000
+    acl dest0 dst_port 10000
     use_backend Backend0 if dest0
     
     bind *:10001
-    acl desk1 dst_port 10001
+    acl dest1 dst_port 10001
     use_backend Backend1 if dest1
     
 backend Backend0
@@ -28,7 +28,8 @@ backend Backend0
 
 backend Backend1
     mode tcp
-    server Backend1 1.2.3.5:2000 check`
+    server Backend1 1.2.3.5:2000 check
+`
 )
 
 func TestGenerateConfig(t *testing.T) {

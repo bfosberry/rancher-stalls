@@ -3,7 +3,6 @@ package haproxy
 import (
 	"fmt"
 	"strings"
-	"sync"
 
 	"github.com/bfosberry/rancher-stalls/command"
 )
@@ -18,7 +17,7 @@ const (
 )
 
 // StartHAProxy starts or reloads haproxy
-func StartHAProxy(configFilename string, wg *sync.WaitGroup) error {
+func StartHAProxy(configFilename string) error {
 	pid := getPid()
 	command := "/usr/local/sbin/haproxy"
 
