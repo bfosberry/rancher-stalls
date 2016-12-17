@@ -5,7 +5,6 @@ import (
 	"io/ioutil"
 	"os"
 	"strconv"
-	"sync"
 	"time"
 
 	"github.com/bfosberry/rancher-stalls/haproxy"
@@ -52,7 +51,7 @@ func main() {
 	}
 }
 
-func updateHaproxy(fetcher configFetcher, wg *sync.WaitGroup) error {
+func updateHaproxy(fetcher configFetcher) error {
 	config, err := fetcher()
 	if err != nil {
 		return err
@@ -62,7 +61,7 @@ func updateHaproxy(fetcher configFetcher, wg *sync.WaitGroup) error {
 		return err
 	}
 
-	return haproxy.StartHAProxy(configFilename, wg)
+	return haproxy.StartHAProxy(configFilename)
 }
 
 func writeHaproxyConfig(config, filename string) error {
