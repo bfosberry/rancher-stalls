@@ -4,5 +4,5 @@
   command: go build -o /opt/export/stalls ./cmd/...
 - service: app
   type: push
-  image: bfosberry/rancher-stalls
+  image_name: bfosberry/rancher-stalls
   tag: master
