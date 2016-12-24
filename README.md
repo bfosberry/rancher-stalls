@@ -3,6 +3,8 @@ Incremental port Haproxy implementation for Rancher services
 
 This application is in Beta
 
+[ ![Codeship Status for bfosberry/rancher-stalls](https://app.codeship.com/projects/54ca6dc0-ac13-0134-c740-2656ee888b62/status?branch=master)](https://app.codeship.com/projects/192369)[ ![Go Report Card for bfosberry/rancher-stalls](https://goreportcard.com/badge/github.com/bfosberry/rancher-stalls)](https://goreportcard.com/badge/github.com/bfosberry/rancher-stalls)
+
 Stalls provides an incremental port mapping proxy for scaled rancher services. This is for use with singleton containers which require direct proxied port mappings, but need to be scaled. The mapping should look like this:
 
 * 5000 -> Container1:8080

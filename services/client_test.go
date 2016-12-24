@@ -21,12 +21,12 @@ func TestGetService(t *testing.T) {
 			Name: serviceName,
 			Containers: []metadata.Container{
 				metadata.Container{
-					CreateIndex: 0,
-					PrimaryIp:   "1.2.3.4",
+					ServiceIndex: "1",
+					PrimaryIp:    "1.2.3.4",
 				},
 				metadata.Container{
-					CreateIndex: 1,
-					PrimaryIp:   "1.2.3.5",
+					ServiceIndex: "2",
+					PrimaryIp:    "1.2.3.5",
 				},
 			},
 		},
