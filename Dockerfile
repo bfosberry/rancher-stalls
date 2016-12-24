@@ -1,6 +1,6 @@
 FROM haproxy
 WORKDIR /
 ENTRYPOINT ["./stalls"]
-ADD stalls .
+ADD dist/stalls .
 
 

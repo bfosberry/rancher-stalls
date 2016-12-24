@@ -1,0 +1,6 @@
+- service: compile
+  command: go build -o /opt/export/stalls ./cmd/...
+- service: app
+  type: push
+  image: bfosberry/rancher-stalls
+  tag: master

@@ -1,0 +1,6 @@
+FROM golang
+
+WORKDIR /go/src/github.com/bfosberry/rancher-stalls
+ADD . .
+
+RUN go get ./...

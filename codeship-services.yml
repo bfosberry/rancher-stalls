@@ -1,0 +1,10 @@
+compile:
+  build:
+    dockerfile_path: Dockerfile.build
+  volumes:
+    - ./dist:/opt/export
+app:
+  build: 
+    image: bfosberry/rancher-stalls
+    dockerfile_path: Dockerfile
+  encrypted_dockercfg_path: ./dockercfg.encrypted
