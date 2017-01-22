@@ -37,12 +37,12 @@ func main() {
 	}
 
 	if err := updateHaproxy(fetcher); err != nil {
-		fail(err)
+                fmt.Printf("failed to update config: %s", err.Error())
 	}
 
 	metadataClient.OnChange(pollSleepTime/1000, func(_ string) {
 		if err := updateHaproxy(fetcher); err != nil {
-			fail(err)
+                        fmt.Printf("failed to write config: %s", err.Error())
 		}
 	})
 
